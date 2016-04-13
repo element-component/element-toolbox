@@ -6,9 +6,8 @@ var path = require('path')
 var karma = require.resolve('karma/bin/karma')
 var file = path.join(__dirname, './../configs/karma.conf.js')
 var program = require('commander')
-
-program.option('--single-run', 'Continuous Integration mode.')
-program.parse(process.argv)
+  .option('--single-run', 'Continuous Integration mode.')
+  .parse(process.argv)
 
 var singleRun = program.singleRun ? '--single-run': ''
 

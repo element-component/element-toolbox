@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 var exec = require('./../lib/exec')
-var log = require('./../lib/log')
-var program = require('commander').parse(process.argv)
 var kp = require.resolve('kanpai/kanpai')
 
 exec(kp, ['--push'])

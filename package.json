@@ -7,7 +7,9 @@
     "element-toolbox": "bin/element-toolbox"
   },
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": ""
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/element-component/element-toolbox.git"

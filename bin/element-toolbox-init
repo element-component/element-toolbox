@@ -3,7 +3,6 @@
 var exec = require('./../lib/exec')
 var CommandAsker = require('command-asker')
 var replace = require('replace')
-var cwd = require('./../lib/cwd')
 var log = require('./../lib/log')
 var username = require('git-user-name')()
 var email = require('git-user-email')()
@@ -14,25 +13,24 @@ var commandasker = new CommandAsker([
   { 'key': '__username__', ask: 'username(' + username + ')', optional: true },
   { 'key': '__email__', ask: 'email(' + email + ')', optional: true }
 ])
-var ask = function () {
-  commandasker.ask(function (response) {
-    response.__component_name__ = response.__component_name__ || repo
-    response.__username__ = response.__username__ || username
-    response.__email__ = response.__email__ || email
-
-    Object.keys(response).map(key => {
-      replace({
-        regex: key,
-        replacement: response[key],
-        paths: ['*'],
-        silent: true
-      })
-    })
-
-    log.success('DONE!')
-    commandasker.close()
-  })
-}
 
 exec('npm', ['link', 'element-toolbox'])
-exec('cooking', ['init', 'element-component/cooking-element'], ask)
+exec('cooking', ['init', 'element-component/cooking-element'])
+
+commandasker.ask(function (response) {
+  response.__component_name__ = response.__component_name__ || repo
+  response.__username__ = response.__username__ || username
+  response.__email__ = response.__email__ || email
+
+  Object.keys(response).map(key => {
+    replace({
+      regex: key,
+      replacement: response[key],
+      paths: ['*'],
+      silent: true
+    })
+  })
+
+  log.success('DONE!')
+  commandasker.close()
+})
