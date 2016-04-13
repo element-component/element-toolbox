@@ -5,7 +5,14 @@ var ghpages = require('gh-pages')
 var cwd = require('./../lib/cwd')
 var exec = require('./../lib/exec')
 var log = require('./../lib/log')
+var cwd = require('./../lib/cwd')
 var dir = 'example/'
+var fs = require('fs')
+var cacheDir = cwd('.cache')
+
+if (!fs.existsSync(cacheDir)){
+    fs.mkdirSync(cacheDir)
+}
 
 var publish = function () {
   dir = cwd(dir, 'build')
@@ -15,6 +22,7 @@ var publish = function () {
   }
 
   ghpages.publish(dir, {
+    clone: '.cache',
     logger: function(message) {
       log.info(message)
     }
