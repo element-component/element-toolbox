@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+var exec = require('./../lib/exec')
+var log = require('./../lib/log')
+var path = require('path')
+var karma = require.resolve('karma/bin/karma')
+var file = path.join(__dirname, './../configs/karma.conf.js')
+var program = require('commander')
+
+program.option('--single-run', 'Continuous Integration mode.')
+program.parse(process.argv)
+
+var singleRun = program.singleRun ? '--single-run': ''
+
+exec(karma, ['start', file, singleRun])

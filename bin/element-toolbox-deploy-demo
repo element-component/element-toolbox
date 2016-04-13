@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+
+var existsSync = require('fs').existsSync
+var ghpages = require('gh-pages')
+var cwd = require('./../lib/cwd')
+var exec = require('./../lib/exec')
+var log = require('./../lib/log')
+var dir = 'example/'
+
+var publish = function () {
+  dir = cwd(dir, 'build')
+
+  if (!existsSync(dir)) {
+    log.error(dir + '  does not exist.')
+  }
+
+  ghpages.publish(dir, {
+    logger: function(message) {
+      log.info(message)
+    }
+  }, function(err) {
+    if (err) {
+      log.error(err)
+    }
+    log.success('DONE!')
+  })
+}
+
+exec('cooking', ['build', '-c', 'cooking.demo.js'], publish)
