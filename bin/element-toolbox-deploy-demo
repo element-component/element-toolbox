@@ -1,29 +1,24 @@
 #!/usr/bin/env node
 
-var fs = require('fs')
+var existsSync = require('fs').existsSync
 var ghpages = require('gh-pages')
 var exec = require('./../lib/exec')
 var log = require('./../lib/log')
 var cwd = require('./../lib/cwd')
-var dir = cwd('example/', 'build')
-var cacheDir = cwd('.cache')
-
-if (!fs.existsSync(cacheDir)){
-  fs.mkdirSync(cacheDir)
-}
+var dir = cwd('example', 'build')
 
 exec('cooking', ['build', '-c', 'cooking.demo.js'])
 
-if (!fs.existsSync(dir)) {
+if (!existsSync(dir)) {
   log.error(dir + '  does not exist.')
 }
 
+ghpages.clean()
 ghpages.publish(dir, {
-  clone: '.cache',
-  logger: function(message) {
+  logger: function (message) {
     log.info(message)
   }
-}, function(err) {
+}, function (err) {
   if (err) {
     log.error(err)
   }
