@@ -44,6 +44,7 @@
     "log-util": "^1.1.1",
     "markdown-loader": "^0.1.7",
     "mocha": "^2.4.5",
+    "pascalcase": "^0.1.1",
     "phantomjs-prebuilt": "^2.1.7",
     "replace": "^0.3.0",
     "requireg": "^0.1.5",

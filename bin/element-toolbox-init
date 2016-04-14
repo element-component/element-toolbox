@@ -6,6 +6,7 @@ var replace = require('replace')
 var log = require('./../lib/log')
 var username = require('git-user-name')()
 var email = require('git-user-email')()
+var pascalcase = require('pascalcase')
 var repo = process.cwd().split('/').pop()
 
 var commandasker = new CommandAsker([
@@ -19,6 +20,7 @@ exec('cooking', ['init', 'element-component/cooking-element'])
 
 commandasker.ask(function (response) {
   response.__component_name__ = response.__component_name__ || repo
+  response.__ComponentName__ = pascalcase(response.__component_name__)
   response.__username__ = response.__username__ || username
   response.__email__ = response.__email__ || email
 
