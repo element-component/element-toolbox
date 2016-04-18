@@ -2,7 +2,7 @@
 > element 组件开发工具
 
 # 依赖
-[cooking 0.2.x](https://github.com/ElemeFE/cooking)
+[cooking >=0.2.3](https://github.com/ElemeFE/cooking)
 
 # 安装
 ```shell
