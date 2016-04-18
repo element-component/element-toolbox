@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/element-component/element-toolbox#readme",
   "dependencies": {
+    "bin-version-check": "^3.0.0",
     "chai": "^3.5.0",
     "command-asker": "^0.3.2",
     "commander": "^2.9.0",
