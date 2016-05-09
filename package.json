@@ -1,6 +1,6 @@
 {
   "name": "element-toolbox",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Toolbox for ELement Component.",
   "preferGlobal": true,
   "bin": {
