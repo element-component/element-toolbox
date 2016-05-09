@@ -1,14 +1,27 @@
 #!/usr/bin/env node
 
 var exec = require('./../lib/exec')
-var log = require('./../lib/log')
+var avaCLI = require.resolve('ava/cli')
 var path = require('path')
-var karma = require.resolve('karma/bin/karma')
-var file = path.join(__dirname, './../configs/karma.conf.js')
 var program = require('commander')
-  .option('--single-run', 'Continuous Integration mode.')
+var option = []
+
+program
+  .option('-w --watch', 'ava watch mode')
   .parse(process.argv)
 
-var singleRun = program.singleRun ? '--single-run': ''
+process.env.NODE_PATH = [path.join(__dirname, '../node_modules/')]
+require('module').Module._initPaths()
 
-exec(karma, ['start', file, singleRun])
+// test file
+option.push('test/*.js')
+
+// browser setup
+option = option.concat(['-r', path.join(__dirname, '../lib/setup-browser-env.js')])
+
+// watch mode
+if (program.watch) {
+  option.push('-w')
+}
+
+exec(avaCLI, option)

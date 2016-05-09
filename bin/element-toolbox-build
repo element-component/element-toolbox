@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
 var exec = require('./../lib/exec')
+var path = require('path')
 
-exec('cooking', ['build'])
+process.env.ELEMENT_TOOLBOX = [path.join(__dirname, '../node_modules')]
+
+exec('cooking', ['build', '-p'])

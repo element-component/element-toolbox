@@ -6,6 +6,9 @@ var exec = require('./../lib/exec')
 var log = require('./../lib/log')
 var cwd = require('./../lib/cwd')
 var dir = cwd('example', 'build')
+var path = require('path')
+
+process.env.ELEMENT_TOOLBOX = [path.join(__dirname, '../node_modules')]
 
 exec('cooking', ['build', '-c', 'cooking.demo.js'])
 

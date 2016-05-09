@@ -1,44 +1,5 @@
 #!/usr/bin/env node
 
 var exec = require('./../lib/exec')
-var CommandAsker = require('command-asker')
-var replace = require('replace')
-var log = require('./../lib/log')
-var username = require('git-user-name')()
-var email = require('git-user-email')()
-var pascalcase = require('pascalcase')
-var binVersionCheck = require('bin-version-check')
-var repo = process.cwd().split('/').pop()
 
-var commandasker = new CommandAsker([
-  { 'key': '__component_name__', ask: 'what is component name(' + repo + ')', optional: true },
-  { 'key': '__username__', ask: 'username(' + username + ')', optional: true },
-  { 'key': '__email__', ask: 'email(' + email + ')', optional: true }
-])
-
-// TODO: 用 co 重构
-binVersionCheck('cooking', '>=0.2.3', ['-V'])
-  .then(() => {
-    exec('npm', ['link', 'element-toolbox'])
-    exec('cooking', ['init', 'element-component/cooking-element'])
-
-    commandasker.ask(function (response) {
-      response.__component_name__ = response.__component_name__ || repo
-      response.__ComponentName__ = pascalcase(response.__component_name__)
-      response.__username__ = response.__username__ || username
-      response.__email__ = response.__email__ || email
-
-      Object.keys(response).map(key => {
-        replace({
-          regex: key,
-          replacement: response[key],
-          paths: ['*'],
-          silent: true
-        })
-      })
-
-      log.success('DONE!')
-      commandasker.close()
-    })
-  })
-  .catch(() => log.error('依赖 cooking >=0.2.3，请更新后再试'))
+exec('cooking', ['init', 'element-component'])
